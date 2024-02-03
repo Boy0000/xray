@@ -12,6 +12,11 @@ fun Player.sendGameTestAddMarker(pos: BlockPos, xrayBlock: XrayConfig.XrayBlock)
     (this as CraftPlayer).handle.connection.send(ClientboundCustomPayloadPacket(debugPayload))
 }
 
+fun Player.sendGameTestAddMarker(pos: BlockPos, color: Int, message: String, duration: Int) {
+    val debugPayload = GameTestAddMarkerDebugPayload(pos, color, message, duration)
+    (this as CraftPlayer).handle.connection.send(ClientboundCustomPayloadPacket(debugPayload))
+}
+
 fun Player.sendGameTestClearMarker(pos: BlockPos) {
     val packet: Packet<*> = ClientboundCustomPayloadPacket(GameTestAddMarkerDebugPayload(pos, 0x000000, "", 0))
     (this as CraftPlayer).handle.connection.send(packet)

@@ -57,7 +57,7 @@ data class XrayConfig(
             @SerialName("duration") private val _duration: @Serializable(DurationSerializer::class) Duration = 2.seconds,
             @EncodeDefault(EncodeDefault.Mode.NEVER) override val message: String = blockId,
         ) : XrayBlock {
-            @Transient override val block = if (Plugins.isEnabled("Oraxen")) OraxenBlocks.getOraxenBlockData(blockId) ?: airData else airData
+            @Transient override val block by lazy { if (Plugins.isEnabled("Oraxen")) OraxenBlocks.getOraxenBlockData(blockId) ?: airData else airData }
             @Transient override val duration: Int = _duration.toInt(DurationUnit.MILLISECONDS)
             @Transient override val color: Int = _color.toColor().asARGB()
         }
@@ -69,7 +69,7 @@ data class XrayConfig(
             @SerialName("duration") private val _duration: @Serializable(DurationSerializer::class) Duration = 2.seconds,
             @EncodeDefault(EncodeDefault.Mode.NEVER) override val message: String = blockId,
         ) : XrayBlock {
-            @Transient override val block = if (Plugins.isEnabled("Geary")) PrefabKey.ofOrNull(blockId)?.let { gearyBlocks.createBlockData(it) } ?: airData else airData
+            @Transient override val block by lazy { if (Plugins.isEnabled("Geary")) PrefabKey.ofOrNull(blockId)?.let { gearyBlocks.createBlockData(it) } ?: airData else airData }
             @Transient override val duration: Int = _duration.toInt(DurationUnit.MILLISECONDS)
             @Transient override val color: Int = _color.toColor().asARGB()
         }
