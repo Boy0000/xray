@@ -5,6 +5,7 @@ pluginManagement {
         maven("https://repo.mineinabyss.com/releases")
         maven("https://repo.mineinabyss.com/snapshots")
         maven("https://repo.papermc.io/repository/maven-public/") //Paper
+        mavenLocal()
     }
 }
 
@@ -14,6 +15,7 @@ dependencyResolutionManagement {
     repositories {
         maven("https://repo.mineinabyss.com/releases")
         maven("https://repo.mineinabyss.com/snapshots")
+        mavenLocal()
     }
 
     versionCatalogs {

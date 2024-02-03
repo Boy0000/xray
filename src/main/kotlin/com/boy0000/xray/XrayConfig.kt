@@ -8,6 +8,7 @@ import kotlinx.serialization.Transient
 import org.bukkit.Material
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.DurationUnit
 
 @Serializable
 data class XrayConfig(
@@ -18,10 +19,11 @@ data class XrayConfig(
     data class XrayBlock(
         @SerialName("block") private val _block: String = "DIAMOND_ORE",
         @SerialName("color") private val _color: String = "0x00FF00",
-        val duration: @Serializable(DurationSerializer::class) Duration = 1.seconds,
+        @SerialName("duration") private val _duration: @Serializable(DurationSerializer::class) Duration = 1.seconds,
     ) {
         @Transient val block = (Material.matchMaterial(_block) ?: Material.DIAMOND_ORE).createBlockData() //TODO Add support for Blocky & Oraxen
         val message: String = block.material.name
-        @Transient val color = _color.toColor()
+        @Transient val color = _color.toColor().asARGB()
+        @Transient val duration = _duration.toInt(DurationUnit.MILLISECONDS)
     }
 }
