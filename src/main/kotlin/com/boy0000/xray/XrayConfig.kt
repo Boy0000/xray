@@ -21,7 +21,7 @@ val airData = Material.AIR.createBlockData()
 @Serializable
 data class XrayConfig(
     val delay: @Serializable(DurationSerializer::class) Duration = 1.seconds,
-    val radius: Int = 64,
+    @SerialName("radius") val _radius: Int = 64,
     val xrayBlocks: List</*@Serializable(XrayBlockSerializer::class) */XrayBlock> = listOf(
         XrayBlock.MinecraftXrayBlock(Material.DIAMOND_ORE),
         XrayBlock.GearyXrayBlock("mineinabyss:crate1"),
@@ -29,6 +29,7 @@ data class XrayConfig(
     )
 ) {
 
+    @Transient val radiusRange: IntRange = -_radius.._radius
 
     @Serializable
     @Polymorphic

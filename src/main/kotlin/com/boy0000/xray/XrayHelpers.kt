@@ -3,7 +3,6 @@ package com.boy0000.xray
 import net.minecraft.core.BlockPos
 import org.bukkit.NamespacedKey
 import org.bukkit.block.Block
-import org.bukkit.block.data.BlockData
 import org.bukkit.entity.Player
 import org.bukkit.persistence.PersistentDataType
 import sendGameTestAddMarker
@@ -19,7 +18,7 @@ object XrayHelpers {
     fun Block.toBlockPos() = BlockPos(x, y, z)
 
     fun xrayNearbyBlocks(player: Player) {
-        val r = -xray.config.radius..xray.config.radius
+        val r = xray.config.radiusRange
         if (player.isXraying == true) for (x in r) for (y in r) for (z in r) {
             val block = player.world.getBlockAt(player.location.clone().add(x.toDouble(), y.toDouble(), z.toDouble()))
             if (block.type.isAir) continue
