@@ -1,3 +1,4 @@
+import net.minecrell.pluginyml.paper.PaperPluginDescription
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -19,12 +20,16 @@ repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://repo.mineinabyss.com/releases")
+    maven("https://repo.oraxen.com/releases")
     maven("https://repo.dmulloy2.net/repository/public/")
     mavenLocal()
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
+    compileOnly("io.th0rgal:oraxen:1.167.0")
+    compileOnly("com.mineinabyss:geary-papermc:0.29.10")
+    compileOnly("com.mineinabyss:blocky:0.9.9")
 
     paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT") //NMS
     implementation(libs.kotlin.stdlib)
@@ -87,5 +92,22 @@ paper {
     version = "${project.version}"
     apiVersion = "1.20"
     authors = listOf("Author")
+    serverDependencies {
+        register("Oraxen") {
+            required = false
+            load = PaperPluginDescription.RelativeLoadOrder.BEFORE
+            joinClasspath = true
+        }
+        register("Geary") {
+            required = false
+            load = PaperPluginDescription.RelativeLoadOrder.BEFORE
+            joinClasspath = true
+        }
+        register("Blocky") {
+            required = false
+            load = PaperPluginDescription.RelativeLoadOrder.BEFORE
+            joinClasspath = true
+        }
+    }
     //commands.create("xray")
 }
