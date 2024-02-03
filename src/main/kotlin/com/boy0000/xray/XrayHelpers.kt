@@ -25,7 +25,7 @@ object XrayHelpers {
 
     fun xrayNearbyBlocks(player: Player) {
         //player.sendGameTestClearAllMarkers()
-        for (x in -64..64) for (y in -64..64) for (z in -64..64) {
+        if (player.isXraying == true) for (x in -64..64) for (y in -64..64) for (z in -64..64) {
             val block = player.world.getBlockAt(player.location.clone().add(x.toDouble(), y.toDouble(), z.toDouble()))
             xray.config.xrayBlocks.firstOrNull { it.block == block.blockData }?.let {
                 if (player in debugPlayers) broadcast("${player.name} is xraying at ${block.toBlockPos()}")
