@@ -1,11 +1,23 @@
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        maven("https://repo.papermc.io/repository/maven-public/")
+
+        maven("https://repo.mineinabyss.com/releases")
+        maven("https://repo.mineinabyss.com/snapshots")
+        maven("https://repo.papermc.io/repository/maven-public/") //Paper
+    }
+}
+
+dependencyResolutionManagement {
+    val idofrontVersion: String by settings
+
+    repositories {
+        maven("https://repo.mineinabyss.com/releases")
+        maven("https://repo.mineinabyss.com/snapshots")
     }
 
-    plugins {
-        kotlin("jvm") version "1.9.20"
+    versionCatalogs {
+        create("libs").from("com.mineinabyss:catalog:$idofrontVersion")
     }
 }
 rootProject.name = "xray"
